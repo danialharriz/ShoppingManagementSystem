@@ -1,0 +1,3 @@
+ 2 Milk 6.5 0
+ 3 Water 8.9 2
+ 1 Eggs 35 0

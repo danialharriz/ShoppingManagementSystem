@@ -1,0 +1,1 @@
+cout << "\n" << "\t"<< pcode << "\t" << pname << "\t"<< arrq[i] << "\t" << price << "\t" << amount << "\t" << dis;
