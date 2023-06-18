@@ -7,13 +7,14 @@ using namespace std;
 
 class Shopping
 {
-private:
+protected:
     int pcode;
     float price;
     float dis;
     string pname;
 
 public:
+    virtual void Receipt();
     void Menu();
     void Admin();
     void Buyer();
@@ -21,80 +22,78 @@ public:
     void Edit();
     void Delete();
     void List();
-    void Receipt();
 };
 
-void Shopping :: Menu()
+class DiscountedProduct : public Shopping
 {
-    m:
+public:
+    void Receipt() override;
+};
+
+void Shopping ::Menu()
+{
+m:
     int choice;
     string email;
     string password;
 
-        cout << "\t\t\t ___________________" << endl;
-        cout << "\t\t\t|                   | " << endl;
-        cout << "\t\t\t|     MAIN MENU     |" << endl;
-        cout << "\t\t\t|___________________|" << endl;
-        cout << "\t\t\t                      " << endl;
-        cout << "\t\t\t                      " << endl;
-        cout << "\t\t\t1) Admin                    " << endl;
-        cout << "\t\t                      " << endl;
-        cout << "\t\t\t2) Buyer                    " << endl;
-        cout << "\t\t                      " << endl;
-        cout << "\t\t\t3) Exit                    " << endl;
-        cout << "\t\t                      " << endl;
-        cout << "\t\t\tPlease Select : ";
-        cin >> choice;
+    cout << "\t\t\t ___________________" << endl;
+    cout << "\t\t\t|                   | " << endl;
+    cout << "\t\t\t|     MAIN MENU     |" << endl;
+    cout << "\t\t\t|___________________|" << endl;
+    cout << "\t\t\t                      " << endl;
+    cout << "\t\t\t                      " << endl;
+    cout << "\t\t\t1) Admin                    " << endl;
+    cout << "\t\t                      " << endl;
+    cout << "\t\t\t2) Buyer                    " << endl;
+    cout << "\t\t                      " << endl;
+    cout << "\t\t\t3) Exit                    " << endl;
+    cout << "\t\t                      " << endl;
+    cout << "\t\t\tPlease Select : ";
+    cin >> choice;
 
-        switch (choice)
+    switch (choice)
+    {
+    case 1:
+        cout << "\t\t\t Please Login !" << endl;
+        cout << "\t\t\t Enter Email : ";
+        cin >> email;
+        cout << "\t\t\t Password : ";
+        cin >> password;
+
+        if (email == "tempest@mail.com" && password == "tempest123")
         {
-            case 1 :
-            cout << "\t\t\t Please Login !" << endl;
-            cout << "\t\t\t Enter Email : ";
-            cin >> email;
-            cout << "\t\t\t Password : ";
-            cin >> password;
-
-            if (email == "tempest@mail.com" && password == "tempest123")
-            {
-                Admin();
-            }
-            else
-            {
-                cout << "Invalid email / password !";
-            }
-            break;
-        
-
-        case 2 :
+            Admin();
+        }
+        else
         {
-            Buyer();
-            break;
+            cout << "Invalid email / password !";
         }
+        break;
 
-        case 3 :
-        {
-            exit(0);
-            break;
-        }
+    case 2:
+    {
+        Buyer();
+        break;
+    }
 
-        default :
-        {
-            cout << "Invalid option. Pick again!";
+    case 3:
+    {
+        exit(0);
+        break;
+    }
 
-        }
-        }
-goto m;
+    default:
+    {
+        cout << "Invalid option. Pick again!";
+    }
+    }
+    goto m;
 }
 
- 
-        
-        
-
-
-void Shopping :: Admin()
+void Shopping ::Admin()
 {
-    m:
+m:
     int choice;
 
     cout << "\t\t\t ___________________" << endl;
@@ -113,7 +112,7 @@ void Shopping :: Admin()
     cout << "\t\t                      " << endl;
     cout << "\t\t\tPlease Select : ";
     cin >> choice;
- 
+
     switch (choice)
     {
     case 1:
@@ -132,15 +131,14 @@ void Shopping :: Admin()
         Menu();
         break;
 
-    default :
-    cout << "Invalid choice";
-}
+    default:
+        cout << "Invalid choice";
+    }
     goto m;
 }
 
-void Shopping :: Buyer()
+void Shopping ::Buyer()
 {
-    m:
     int choice;
     cout << "\n\t\t\t _______________________  " << endl;
     cout << "\t\t\t|                       | " << endl;
@@ -154,27 +152,28 @@ void Shopping :: Buyer()
     cout << "\t\t\t Enter your choice : ";
     cin >> choice;
 
-    
     switch (choice)
     {
     case 1:
-        Receipt();
-        break;
+        {Shopping *product = new DiscountedProduct();
+        product->Receipt();
+        delete product;
+        break;}
 
     case 2:
         Menu();
         break;
 
-    default :
+    default:
         cout << "Invalid choice";
     }
 
-    goto m;
+    return;
 }
 
-void Shopping :: Add()
+void Shopping ::Add()
 {
-    m:
+m:
     fstream data;
     int c;
     int token = 0;
@@ -198,30 +197,36 @@ void Shopping :: Add()
 
     data.open("database.txt", ios::in);
 
-    if (!data){
-        data.open("database.txt", ios::app|ios::out);
-        //data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
+    if (!data)
+    {
+        data.open("database.txt", ios::app | ios::out);
+        // data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
         data.close();
     }
-    else{
+    else
+    {
         data >> c >> n >> p >> d;
 
-        while (!data.eof()){
+        while (!data.eof())
+        {
 
-            if (c == pcode){
+            if (c == pcode)
+            {
                 token++;
             }
 
             data >> c >> n >> p >> d;
         }
         data.close();
-    }  
+    }
 
-    if (token ==  1){
+    if (token == 1)
+    {
         goto m;
     }
-    else{
-        data.open("database.txt", ios::app|ios::out);
+    else
+    {
+        data.open("database.txt", ios::app | ios::out);
         data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
         data.close();
     }
@@ -229,7 +234,7 @@ void Shopping :: Add()
     cout << "\n\n\t\t Record Inserted !";
 }
 
-void Shopping :: Edit()
+void Shopping ::Edit()
 {
     fstream data, data1;
     int pkey;
@@ -247,15 +252,16 @@ void Shopping :: Edit()
     cout << "\t\t\t Product code : ";
     cin >> pkey;
 
-    data.open("database.txt", ios :: in);
+    data.open("database.txt", ios ::in);
 
-    if(!data)
+    if (!data)
     {
         cout << "\n\nFile doesn't exist!";
     }
 
-    else{
-        data1.open("database1.txt", ios::app|ios::out);
+    else
+    {
+        data1.open("database1.txt", ios::app | ios::out);
         data >> pcode >> pname >> price >> dis;
 
         while (!data.eof())
@@ -294,12 +300,12 @@ void Shopping :: Edit()
     }
 }
 
-void Shopping :: Delete()
+void Shopping ::Delete()
 {
     fstream data, data1;
     int pkey;
     int token = 0;
-    
+
     cout << "\t\t\t ___________________" << endl;
     cout << "\t\t\t|                   | " << endl;
     cout << "\t\t\t| Delete The Record | " << endl;
@@ -308,24 +314,29 @@ void Shopping :: Delete()
     cout << "\t\t\t Product code : ";
     cin >> pkey;
 
-    data.open("database.txt" , ios::in);
+    data.open("database.txt", ios::in);
 
-    if(!data){
+    if (!data)
+    {
         cout << "File doesn't exist!";
     }
 
-    else{
-        data1.open("database1.txt",ios::app|ios::out);
+    else
+    {
+        data1.open("database1.txt", ios::app | ios::out);
         data >> pcode >> pname >> price >> dis;
-        while(!data.eof()){
+        while (!data.eof())
+        {
 
-            if (pcode == pkey){
+            if (pcode == pkey)
+            {
                 cout << "\n\n\t Product deleted succesfully";
                 token++;
             }
 
-            else{
-                data1 << " " << pcode << " " << pname << " " << price << " " << dis <<"\n";
+            else
+            {
+                data1 << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
             }
 
             data >> pcode >> pname >> price >> dis;
@@ -336,17 +347,18 @@ void Shopping :: Delete()
         remove("database.txt");
         rename("database1.txt", "database.txt");
 
-        if (token==0){
+        if (token == 0)
+        {
             cout << "Record is not found!";
         }
     }
 }
 
-void Shopping :: List()
+void Shopping ::List()
 {
     fstream data;
     data.open("database.txt", ios::in);
-    
+
     cout << "\n\n_________________________\n";
     cout << "Product No\t\tName\t\tPrice\n";
     cout << "\n\n_________________________\n";
@@ -360,7 +372,7 @@ void Shopping :: List()
     data.close();
 }
 
-void Shopping::Receipt()
+void DiscountedProduct::Receipt()
 {
     fstream data;
     int arrc[100];
@@ -368,8 +380,8 @@ void Shopping::Receipt()
     char choice;
     int c = 0;
     float amount = 0;
-    float dis = 0;
     float total = 0;
+    float additionalDiscount = 10; // Additional discount percentage for discounted products
 
     cout << "\n---------------------------------------";
     cout << "\n\t\t RECEIPT ";
@@ -390,8 +402,7 @@ void Shopping::Receipt()
         cout << "\t\t\t|___________________| " << endl;
         cout << "\t\t\t                      " << endl;
         do
-        {
-            m:
+        {m:
             cout << "\n\nEnter product code : ";
             cin >> arrc[c];
             cout << "\n\nEnter the product quantity : ";
@@ -410,8 +421,12 @@ void Shopping::Receipt()
             c++;
         } while (choice == 'Y' || choice == 'y');
 
+        // Apply additional discount for discounted products
+        float discount = additionalDiscount + dis;
+
+        // Calculate and display the receipt
         cout << "\n\n\t\t\t_______________RECEIPT__________________" << endl;
-        cout << "ProductNo\t Product Name\t Product Quantity \t Price \t Amount \t Amount with Discount\n";
+        cout << "ProductNo\t Product Name\t Product Quantity \t Price \t Amount \t Discounted Price\n";
 
         data.open("database.txt", ios::in);
         data >> pcode >> pname >> price >> dis;
@@ -422,9 +437,10 @@ void Shopping::Receipt()
                 if (pcode == arrc[i])
                 {
                     amount = price * arrq[i];
-                    dis = amount - (amount * dis / 100);
-                    total += dis;
-                    cout << "\n" << "\t" << pcode << "\t" << pname << "\t" << arrq[i] << "\t" << price << "\t" << amount << "\t" << dis;
+                    float discountedPrice = amount - (amount * discount / 100);
+                    total += discountedPrice;
+                    cout << "\n"
+                         << "\t" << pcode << "\t" << pname << "\t" << arrq[i] << "\t" << price << "\t" << amount << "\t" << discountedPrice;
                 }
             }
             data >> pcode >> pname >> price >> dis;
@@ -435,9 +451,14 @@ void Shopping::Receipt()
 }
 
 
+void Shopping::Receipt()
+{
+}
 
 int main()
 {
     Shopping p;
     p.Menu();
+
+    return 0;
 }
