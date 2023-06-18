@@ -1,1 +1,1 @@
-# ShoppingManagementSystem
+# Programming Technique Final Project
