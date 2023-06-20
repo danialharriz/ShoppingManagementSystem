@@ -2,8 +2,27 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
+#include<vector>
 
 using namespace std;
+
+class Product
+{
+private:
+    int pcode;
+    float price;
+    float dis;
+    string pname;
+
+public:
+    Product(int code, float pr, float discount, const string& name): pcode(code), price(pr), dis(discount), pname(name) {}
+
+    int getCode() const { return pcode; }
+    float getPrice() const { return price; }
+    float getDiscount() const { return dis; }
+    string getName() const { return pname; }
+};
+
 
 class Shopping
 {
@@ -12,6 +31,7 @@ protected:
     float price;
     float dis;
     string pname;
+    vector<Product> products;
 
 public:
     virtual void Receipt();
