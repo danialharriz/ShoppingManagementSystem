@@ -27,7 +27,7 @@ public:
 class DiscountedProduct : public Shopping
 {
 public:
-    void Receipt() override;
+    void Receipt();
 };
 
 void Shopping ::Menu()
@@ -155,10 +155,12 @@ void Shopping ::Buyer()
     switch (choice)
     {
     case 1:
-        {Shopping *product = new DiscountedProduct();
-        product->Receipt();
-        delete product;
-        break;}
+        {
+            Shopping *product = new DiscountedProduct();
+            product->Receipt();
+            delete product;
+            break;
+        }
 
     case 2:
         Menu();
@@ -454,7 +456,6 @@ void DiscountedProduct::Receipt()
 void Shopping::Receipt()
 {
 }
-
 int main()
 {
     Shopping p;
