@@ -31,6 +31,12 @@ public:
     void Receipt();
 };
 
+class SelectedItems : public Shopping
+{
+  public:
+  void Edit();
+};
+
 void Shopping ::Menu()
 {
 m:
@@ -301,6 +307,11 @@ void Shopping ::Edit()
             cout << "\n\n Record not found!";
         }
     }
+}
+
+void SelectedItems::Edit()
+{
+    Shopping::Edit();
 }
 
 void Shopping ::Delete()
