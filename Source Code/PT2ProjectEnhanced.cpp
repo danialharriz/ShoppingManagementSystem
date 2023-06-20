@@ -309,11 +309,11 @@ void Shopping ::Edit()
     }
 }
 
-void SelectedItems::Edit()
+/*void SelectedItems::Edit()
 {
-    Shopping::Edit();
+    Edit();
 }
-
+*/
 void Shopping ::Delete()
 {
     fstream data, data1;
