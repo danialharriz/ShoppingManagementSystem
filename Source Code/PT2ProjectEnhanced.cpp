@@ -26,13 +26,15 @@ public:
 
 class DiscountedProduct : public Shopping
 {
-
 public:
     void Receipt();
-
 };
 
-class SelectedItems : public Shopping;
+class SelectedItems : public Shopping
+{
+public:
+    void Edit();
+};
 
 void Shopping ::Menu()
 {
@@ -141,7 +143,7 @@ m:
     goto m;
 }
 
-void Shopping ::Buyer()
+void Shopping :: Buyer()
 {
     int choice;
     cout << "\n\t\t\t _______________________  " << endl;
@@ -240,7 +242,7 @@ m:
     cout << "\n\n\t\t Record Inserted !";
 }
 
-void Shopping::Edit()
+void Shopping ::Edit()
 {
     fstream data, data1;
     int pkey;
@@ -310,6 +312,7 @@ void SelectedItems::Edit()
 {
     Edit();
 }
+
 void Shopping ::Delete()
 {
     fstream data, data1;
