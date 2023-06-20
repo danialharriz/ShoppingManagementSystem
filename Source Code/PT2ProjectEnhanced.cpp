@@ -29,13 +29,10 @@ class DiscountedProduct : public Shopping
 
 public:
     void Receipt();
+
 };
 
-class SelectedItems : public Shopping
-{
-  public:
-  void Edit();
-};
+class SelectedItems : public Shopping;
 
 void Shopping ::Menu()
 {
