@@ -26,6 +26,7 @@ public:
 
 class DiscountedProduct : public Shopping
 {
+
 public:
     void Receipt();
 };
@@ -374,6 +375,7 @@ void Shopping ::List()
     data.close();
 }
 
+
 void DiscountedProduct::Receipt()
 {
     fstream data;
@@ -453,9 +455,86 @@ void DiscountedProduct::Receipt()
 }
 
 
+
 void Shopping::Receipt()
 {
+    fstream data;
+    int arrc[100];
+    int arrq[100];
+    char choice;
+    int c = 0;
+    float amount = 0;
+    float total = 0;
+    float additionalDiscount = 10; // Additional discount percentage for discounted products
+
+    cout << "\n---------------------------------------";
+    cout << "\n\t\t RECEIPT ";
+    data.open("database.txt", ios::in);
+
+    if (!data)
+    {
+        cout << "\n\n Empty database";
+    }
+    else
+    {
+        data.close();
+
+        List();
+        cout << "\n\t\t\t ___________________" << endl;
+        cout << "\t\t\t|                   | " << endl;
+        cout << "\t\t\t|    Place Order    | " << endl;
+        cout << "\t\t\t|___________________| " << endl;
+        cout << "\t\t\t                      " << endl;
+        do
+        {
+            m:
+            cout << "\n\nEnter product code : ";
+            cin >> arrc[c];
+            cout << "\n\nEnter the product quantity : ";
+            cin >> arrq[c];
+
+            for (int i = 0; i < c; i++)
+            {
+                if (arrc[c] == arrc[i] && arrq[c] == arrq[i])
+                {
+                    cout << "\n\n Duplicated product code and quantity. Try Again!";
+                    goto m;
+                }
+            }
+            cout << "\n\n Do you want to buy another product? (Y = YES, N = NO) : ";
+            cin >> choice;
+            c++;
+        } while (choice == 'Y' || choice == 'y');
+
+        // Apply additional discount for discounted products
+        float discount = additionalDiscount + dis;
+
+        // Calculate and display the receipt
+        cout << "\n\n\t\t\t_______________RECEIPT__________________" << endl;
+        cout << "ProductNo\t Product Name\t Product Quantity \t Price \t Amount \t Discounted Price\n";
+
+        data.open("database.txt", ios::in);
+        data >> pcode >> pname >> price >> dis;
+        while (!data.eof())
+        {
+            for (int i = 0; i < c; i++)
+            {
+                if (pcode == arrc[i])
+                {
+                    amount = price * arrq[i];
+                    float discountedPrice = amount - (amount * discount / 100);
+                    total += discountedPrice;
+                    cout << "\n"
+                         << "\t" << pcode << "\t" << pname << "\t" << arrq[i] << "\t" << price << "\t" << amount << "\t" << discountedPrice;
+                }
+            }
+            data >> pcode >> pname >> price >> dis;
+        }
+        data.close();
+    }
+    cout << "\n\nTotal Amount : " << total;
 }
+
 int main()
 {
     Shopping p;
