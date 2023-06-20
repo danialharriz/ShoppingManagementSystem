@@ -243,7 +243,7 @@ m:
     cout << "\n\n\t\t Record Inserted !";
 }
 
-void Shopping ::Edit()
+void Shopping::Edit()
 {
     fstream data, data1;
     int pkey;
@@ -309,11 +309,10 @@ void Shopping ::Edit()
     }
 }
 
-/*void SelectedItems::Edit()
+void SelectedItems::Edit()
 {
     Edit();
 }
-*/
 void Shopping ::Delete()
 {
     fstream data, data1;
