@@ -31,7 +31,7 @@ protected:
     float price;
     float dis;
     string pname;
-    vector<Product> products;
+    Product* products;
 
 public:
     virtual void Receipt();
