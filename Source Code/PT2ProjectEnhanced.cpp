@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstdlib>
 #include<vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -59,6 +60,7 @@ public:
 void Shopping ::Menu()
 {
 m:
+    system("cls");
     int choice;
     string email;
     string password;
@@ -81,6 +83,12 @@ m:
     switch (choice)
     {
     case 1:
+        system("cls");
+        cout << "\t\t\t ___________________  " << endl;
+        cout << "\t\t\t|                   | " << endl;
+        cout << "\t\t\t|       LOGIN       | " << endl;
+        cout << "\t\t\t|___________________| " << endl;
+        cout << "\t\t\t                      " << endl;
         cout << "\t\t\t Please Login !" << endl;
         cout << "\t\t\t Enter Email : ";
         cin >> email;
@@ -93,7 +101,9 @@ m:
         }
         else
         {
-            cout << "Invalid email / password !";
+            cout << "\n\n\t\tInvalid email / password !.." << endl;
+            cout << "\t\tYou will now be redirected to the Main Menu..." << endl;
+            cout << "\t\t" << system("pause");
         }
         break;
 
@@ -120,6 +130,7 @@ m:
 void Shopping ::Admin()
 {
 m:
+system("cls");
     int choice;
 
     cout << "\t\t\t ___________________" << endl;
@@ -165,8 +176,9 @@ m:
 
 void Shopping :: Buyer()
 {
+    system("cls");
     int choice;
-    cout << "\n\t\t\t _______________________  " << endl;
+    cout << "\t\t\t _______________________  " << endl;
     cout << "\t\t\t|                       | " << endl;
     cout << "\t\t\t|       BUYER MENU      | " << endl;
     cout << "\t\t\t|_______________________| " << endl;
@@ -201,7 +213,8 @@ void Shopping :: Buyer()
 
 void Shopping ::Add()
 {
-m:
+m: 
+    system("cls");
     fstream data;
     int c;
     int token = 0;
@@ -250,20 +263,26 @@ m:
 
     if (token == 1)
     {
+        system("cls");
+        cout << "\t\tYou have entered a duplicated product code. Please re-enter the product details!" << endl;
+        cout << "\t\t" << system("pause");
         goto m;
     }
     else
     {
         data.open("database.txt", ios::app | ios::out);
-        data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
+        data << "\t\t" << pcode << "\t\t" << pname << "\t\t" << price << "\t\t" << dis << "\n";
         data.close();
     }
 
-    cout << "\n\n\t\t Record Inserted !";
+    cout << "\n\n\t\t Record Inserted !" << endl;
+    cout << "\t\t You will now be redirected to the Admin Menu.." << endl;
+    cout << "\t\t" << system("pause");
 }
 
 void Shopping ::Edit()
 {
+    system("cls");
     fstream data, data1;
     int pkey;
     int token = 0;
@@ -335,6 +354,7 @@ void SelectedItems::Edit()
 
 void Shopping ::Delete()
 {
+    system("cls");
     fstream data, data1;
     int pkey;
     int token = 0;
@@ -392,14 +412,14 @@ void Shopping ::List()
     fstream data;
     data.open("database.txt", ios::in);
 
-    cout << "\n\n_________________________\n";
-    cout << "Product No\t\tName\t\tPrice\n";
-    cout << "\n\n_________________________\n";
+    cout << "\n\n\t\t_______________________________________________\n";
+    cout << "\t\tProduct No\t\tName\t\tPrice\n";
     data >> pcode >> pname >> price >> dis;
+    cout << "\t\t_______________________________________________\n";
 
     while (!data.eof())
     {
-        cout << pcode << "\t\t" << pname << "\t\t" << price << "\n";
+        cout << "\t\t" << pcode << "\t\t\t" << pname << "\t\t" << price << "\n";
         data >> pcode >> pname >> price >> dis;
     }
     data.close();
@@ -408,6 +428,7 @@ void Shopping ::List()
 
 void DiscountedProduct::Receipt()
 {
+    system("cls");
     fstream data;
     int arrc[100];
     int arrq[100];
@@ -417,8 +438,9 @@ void DiscountedProduct::Receipt()
     float total = 0;
     float additionalDiscount = 10; // Additional discount percentage for discounted products
 
-    cout << "\n---------------------------------------";
-    cout << "\n\t\t RECEIPT ";
+    cout << "\n\t\t-----------------------------------------------";
+    cout << "\n\t\t|                 RECEIPT                      |";
+    cout << "\n\t\t-----------------------------------------------";
     data.open("database.txt", ios::in);
 
     if (!data)
@@ -436,10 +458,11 @@ void DiscountedProduct::Receipt()
         cout << "\t\t\t|___________________| " << endl;
         cout << "\t\t\t                      " << endl;
         do
-        {m:
-            cout << "\n\nEnter product code : ";
+        {
+            m:
+            cout << "\nEnter product code : ";
             cin >> arrc[c];
-            cout << "\n\nEnter the product quantity : ";
+            cout << "\nEnter the product quantity : ";
             cin >> arrq[c];
 
             for (int i = 0; i < c; i++)
@@ -459,8 +482,10 @@ void DiscountedProduct::Receipt()
         float discount = additionalDiscount + dis;
 
         // Calculate and display the receipt
+        system("cls");
         cout << "\n\n\t\t\t_______________RECEIPT__________________" << endl;
-        cout << "ProductNo\t Product Name\t Product Quantity \t Price \t Amount \t Discounted Price\n";
+        cout << "ProductNo" << setw(20) << "Product Name" << setw(20) << "Product Quantity" << setw(10) << "Price" << setw(10) << "Amount" << setw(20) << "Discounted Price\n";
+
 
         data.open("database.txt", ios::in);
         data >> pcode >> pname >> price >> dis;
@@ -473,15 +498,15 @@ void DiscountedProduct::Receipt()
                     amount = price * arrq[i];
                     float discountedPrice = amount - (amount * discount / 100);
                     total += discountedPrice;
-                    cout << "\n"
-                         << "\t" << pcode << "\t" << pname << "\t" << arrq[i] << "\t" << price << "\t" << amount << "\t" << discountedPrice;
+                    cout << endl <<setw(5) << pcode << setw(22) << pname << setw(15) << arrq[i] << setw(15) << price << setw(10) << amount << setw(15) << discountedPrice << endl;
                 }
             }
             data >> pcode >> pname >> price >> dis;
         }
         data.close();
     }
-    cout << "\n\nTotal Amount : " << total;
+    cout << "\n\nTotal Amount : " << total << endl;
+    system("pause");
 }
 
 
@@ -541,26 +566,29 @@ void Shopping::Receipt()
 
         // Calculate and display the receipt
         cout << "\n\n\t\t\t_______________RECEIPT__________________" << endl;
-        cout << "ProductNo\t Product Name\t Product Quantity \t Price \t Amount \t Discounted Price\n";
+        cout << "ProductNo" << setw(10) << "Product Name" << setw(15) << "Product Quantity" << setw(10) << "Price" << setw(10) << "Amount" << setw(20) << "Discounted Price\n";
 
-        data.open("database.txt", ios::in);
-        data >> pcode >> pname >> price >> dis;
-        while (!data.eof())
+
+      data.open("database.txt", ios::in);
+      data >> pcode >> pname >> price >> dis;
+
+      cout << "ProductNo" << setw(10) << "Product Name" << setw(15) << "Product Quantity" << setw(10) << "Price" << setw(10) << "Amount" << setw(20) << "Discounted Price\n";
+
+    while (!data.eof())
+    {
+        for (int i = 0; i < c; i++)
         {
-            for (int i = 0; i < c; i++)
+            if (pcode == arrc[i])
             {
-                if (pcode == arrc[i])
-                {
-                    amount = price * arrq[i];
-                    float discountedPrice = amount - (amount * discount / 100);
-                    total += discountedPrice;
-                    cout << "\n"
-                         << "\t" << pcode << "\t" << pname << "\t" << arrq[i] << "\t" << price << "\t" << amount << "\t" << discountedPrice;
-                }
+                amount = price * arrq[i];
+                float discountedPrice = amount - (amount * discount / 100);
+                total += discountedPrice;
+                cout << pcode << setw(15) << pname << setw(20) << arrq[i] << setw(10) << price << setw(10) << amount << setw(20) << discountedPrice << endl;
             }
-            data >> pcode >> pname >> price >> dis;
         }
-        data.close();
+        data >> pcode >> pname >> price >> dis;
+    }
+    data.close();
     }
     cout << "\n\nTotal Amount : " << total;
 }

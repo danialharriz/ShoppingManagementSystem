@@ -1,3 +1,4 @@
- 2 Water 1.5 0
- 3 Water 8.9 2
- 4 MILK 10 50
+		1		Carrots		2.5		0
+		2		Eggs		24		0
+		3		Cabbage		12		0
+		5		Tissue		2.5		0
