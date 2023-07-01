@@ -241,7 +241,6 @@ m:
     if (!data)
     {
         data.open("database.txt", ios::app | ios::out);
-        // data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
         data.close();
     }
     else
